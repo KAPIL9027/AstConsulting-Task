@@ -3,6 +3,10 @@ const axios = require('axios')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const Subscription = require('./models/User')
+const cron = require('node-cron');
+
+
+
 dotenv.config()
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.TELBOT_API_KEY;
@@ -15,6 +19,19 @@ console.log("Database connected!!!");
 }).catch((e)=>{
     console.log(e.message);
 })
+
+cron.schedule('0 14 * * *', async ()=>{
+  console.log('cron job started');
+  
+const subscribers = await Subscription.find({});
+subscribers.forEach(async (subscriber)=>{
+const res = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${subscriber?.city}&appid=${process.env.OPEN_WEATHER_API_KEY}&units=metric`);
+  const data = res.data;
+bot.sendMessage(subscriber.chatId, `Your Daily Weather Update is here:\nCity: ${data?.name}\nCountry: ${data.sys.country}\nCondition: ${data?.weather[0].main}\nTemperature: ${data?.main?.temp}°C\nFeels Like: ${data?.main?.feels_like}°C\nMinimum Temp: ${data?.main?.temp_min}°C\nMaximum Temp: ${data?.main?.temp_max}°C\n`);
+})
+
+});
+
 
 
 // Matches "/echo [whatever]"
@@ -33,8 +50,9 @@ bot.onText(/\/subscribe (.+)/, async (msg, match) => {
     const res = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${resp}&appid=${process.env.OPEN_WEATHER_API_KEY}&units=metric`);
     const data = res.data;
     console.log(data);
-    const currentUser = await Subscription.find({chatId});
-    
+   
+    const currentUser = await Subscription.findOne({chatId});
+    console.log(currentUser);
     if(!currentUser)
     {
         const user = await Subscription.create({chatId,city: resp});
@@ -42,8 +60,8 @@ bot.onText(/\/subscribe (.+)/, async (msg, match) => {
     }
     else
     {
-        console.log("Already exists");
-        console.log(currentUser);
+        const updateUser = await Subscription.updateOne(currentUser,{city:resp});
+        console.log(updateUser);
         
     }
     bot.sendMessage(chatId, `City: ${data?.name}\nCountry: ${data.sys.country}\nCondition: ${data?.weather[0].main}\nTemperature: ${data?.main?.temp}°C\nFeels Like: ${data?.main?.feels_like}°C\nMinimum Temp: ${data?.main?.temp_min}°C\nMaximum Temp: ${data?.main?.temp_max}°C\n`);
