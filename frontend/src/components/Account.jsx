@@ -1,8 +1,9 @@
-import React from 'react'
+import {useState,useEffect} from 'react'
 import users from '../assets/dummyAccount'
 import DeleteIcon from '@mui/icons-material/Delete';
 import BlockIcon from '@mui/icons-material/Block';
 const Account = () => {
+  const [users,setUsers] = useState([]);
 
   return (
     <main id="accounts">
