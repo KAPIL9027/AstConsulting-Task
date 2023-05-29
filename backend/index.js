@@ -50,7 +50,9 @@ bot.onText(/\/subscribe (.+)/, async (msg, match) => {
   const resp = match[1]; // the captured "whatever"
 
   // send back the matched "whatever" to the chat
+  console.log(msg);
   const chatId = msg.chat.id;
+  const name = msg.chat.first_name;
   try{
     console.log(resp);
     const res = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${resp}&appid=${process.env.OPEN_WEATHER_API_KEY}&units=metric`);
@@ -61,7 +63,7 @@ bot.onText(/\/subscribe (.+)/, async (msg, match) => {
     console.log(currentUser);
     if(!currentUser)
     {
-        const user = await Subscription.create({chatId,city: resp,subscription: "active"});
+        const user = await Subscription.create({name,chatId,city: resp,subscription: "active"});
         console.log(user);
     }
     else
