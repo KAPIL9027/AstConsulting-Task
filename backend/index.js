@@ -20,7 +20,7 @@ console.log("Database connected!!!");
     console.log(e.message);
 })
 
-cron.schedule('0 14 * * *', async ()=>{
+cron.schedule('0 9 * * *', async ()=>{
   console.log('cron job started');
   
 const subscribers = await Subscription.find({});
