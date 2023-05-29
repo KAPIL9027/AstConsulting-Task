@@ -4,8 +4,9 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const Subscription = require('./models/User')
 const cron = require('node-cron');
-
-
+const express = require('express');
+const cors  = require('cors');
+const app = express();
 
 dotenv.config()
 // replace the value below with the Telegram token you receive from @BotFather
@@ -13,6 +14,11 @@ const token = process.env.TELBOT_API_KEY;
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
+
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json({extended: true}));
+app.use(cors());
 
 mongoose.connect(process.env.DB_URL).then(()=>{
 console.log("Database connected!!!");
@@ -99,4 +105,38 @@ bot.onText(/\/weather (.+)/, async (msg, match) => {
      
     }
   });
+
+
+
+  /*Rest Api which will be used by the admin portal*/
+
+
+  // to get all the subscribed users from the database
+  app.get('/users',async (req,res)=>{
+  const users = await Subscription.find({});
+  res.status(200).json(users);
+  })
+  
+  // to block/unblock a user 
+  app.put('/block/:id',async (req,res)=>{
+  const id = req.params.id;
+  const user = await Subscription.findById({_id: id});
+  user.subscription  = user.subscription === 'active' ? 'blocked' : 'active';
+  await user.save();
+  console.log(user);
+  res.status(200).json({msg: "Success!!!"});
+  
+  })
+
+  // to delete a user
+  app.delete('/delete/:id',async (req,res)=>{
+  const id = req.params.id;
+  await Subscription.deleteOne({_id: id});
+  res.status(200).json({msg: "Succesfully deleted!!!"});
+  })
+
+
+  app.listen('3000',()=>{
+    console.log("Server Listening on port 3000");
+  })
   
