@@ -1,0 +1,79 @@
+#nav-header {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 2rem;
+padding: 1rem;
+border-bottom: 1px solid lightgray;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+  font-size: 1.25rem;
+}
+
+a:hover{
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+#accounts{
+  display: flex;
+  padding: 4rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-details{
+display: flex;
+justify-content: flex-start;
+gap: 0.75rem;
+
+}
+
+.user{
+  display: flex;
+  flex-direction: row;
+  background-color: whitesmoke;
+  margin: 0.5rem;
+  padding: 1rem;
+  min-width: 60rem;
+  gap: 10rem;
+  justify-content: space-between;
+  align-items: center;
+  color: green
+}
+
+.detail-heading{
+  font-weight: 700;
+  color: black;
+}
+
+
+#blockbtn:hover{
+color: orange;
+
+}
+
+#deletebtn:hover{
+  color: red;
+}
+
+.action{
+padding: 0.7rem;
+cursor: pointer;
+color: black;
+}
+.action:hover{
+  background-color: lightgray;
+  border-radius: 5px;
+  
+}
+
+.actions{
+  display: flex;
+  gap: 1rem;
+  
+}

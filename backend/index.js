@@ -23,7 +23,7 @@ console.log("Database connected!!!");
 cron.schedule('0 9 * * *', async ()=>{
   console.log('cron job started');
   
-const subscribers = await Subscription.find({});
+const subscribers = await Subscription.find({subscription: "active"});
 subscribers.forEach(async (subscriber)=>{
 const res = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${subscriber?.city}&appid=${process.env.OPEN_WEATHER_API_KEY}&units=metric`);
   const data = res.data;
@@ -55,7 +55,7 @@ bot.onText(/\/subscribe (.+)/, async (msg, match) => {
     console.log(currentUser);
     if(!currentUser)
     {
-        const user = await Subscription.create({chatId,city: resp});
+        const user = await Subscription.create({chatId,city: resp,subscription: "active"});
         console.log(user);
     }
     else
