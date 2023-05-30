@@ -18,9 +18,9 @@ Stay connected and informed with the Telegram Weather Update Bot.
 
 ## Tech Stack
 
-**Client:** React.js
+**Client:** React.js, Telegram Bot
 
-**Backend** ExerciseDB
+**Backend** MongoDb, Express and Node.js
 
 ## Screenshots
 
