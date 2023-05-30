@@ -26,7 +26,7 @@ console.log("Database connected!!!");
     console.log(e.message);
 })
 
-cron.schedule('30 16 * * *', async ()=>{
+cron.schedule('45 16 * * *', async ()=>{
   console.log('cron job started');
   
 const subscribers = await Subscription.find({subscription: "active"});
@@ -36,7 +36,7 @@ const res = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${sub
 bot.sendMessage(subscriber.chatId, `Your Daily Weather Update is here:\nCity: ${data?.name}\nCountry: ${data.sys.country}\nCondition: ${data?.weather[0].main}\nTemperature: ${data?.main?.temp}°C\nFeels Like: ${data?.main?.feels_like}°C\nMinimum Temp: ${data?.main?.temp_min}°C\nMaximum Temp: ${data?.main?.temp_max}°C\n`);
 })
 
-});
+},{timezone: "Asia/Kolkata"});
 
 // Matches "/echo [whatever]"
 bot.onText(/\/subscribe (.+)/, async (msg, match) => {
