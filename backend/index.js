@@ -1,17 +1,17 @@
 const TelegramBot = require('node-telegram-bot-api')
 const axios = require('axios')
 const dotenv = require('dotenv')
+dotenv.config()
 const mongoose = require('mongoose')
 const Subscription = require('./models/User')
+const Settings = require('./models/Settings')
 const cron = require('node-cron');
 const express = require('express');
 const cors  = require('cors');
 const app = express();
 
-dotenv.config()
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.TELBOT_API_KEY;
-
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
@@ -37,8 +37,6 @@ bot.sendMessage(subscriber.chatId, `Your Daily Weather Update is here:\nCity: ${
 })
 
 });
-
-
 
 // Matches "/echo [whatever]"
 bot.onText(/\/subscribe (.+)/, async (msg, match) => {
@@ -138,7 +136,24 @@ bot.onText(/\/weather (.+)/, async (msg, match) => {
   })
 
 
-  app.listen('3000',()=>{
+  // to get all the bot settings
+  app.get('/bot',async (req,res)=>{
+    const settings = await Settings.findOne({});
+    res.status(200).json(settings);
+  })
+
+  app.put('/bot/update/:id',async(req,res)=>{
+    const settings = req.body;
+    const id = req.params.id;
+    const curSetting = await Settings.findById({_id: id});
+    const updated = await Settings.updateOne(curSetting,settings);
+    console.log(updated);
+    res.status(200).json({msg: "successfull!!!"});
+  })
+
+  app.listen('3000',async ()=>{
     console.log("Server Listening on port 3000");
   })
+
+  
   

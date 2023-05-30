@@ -77,3 +77,47 @@ color: black;
   gap: 1rem;
   
 }
+
+
+.api{
+  width: 70%;
+  outline: none;
+  border: none;
+  background: none;
+  color: green;
+}
+
+.api-key{
+  background-color: whitesmoke;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 65rem;
+  height: 2rem;
+}
+
+.update-btn{
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background-color: green;
+}
+
+.update-btn:hover{
+ background-color: rgb(1, 72, 1);
+}
+
+#settings{
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+padding: 5rem;
+}
