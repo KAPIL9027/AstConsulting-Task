@@ -27,7 +27,7 @@ const Settings = () => {
           },
           body: JSON.stringify(settings)
         }
-        const res = await fetch(`https://telbot-backend.onrender.com/update/${settings._id}`,config);
+        const res = await fetch(`https://telbot-backend.onrender.com/bot/update/${settings._id}`,config);
         const data = await res.json();
         
       }}>Update</button>
