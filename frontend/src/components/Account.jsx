@@ -7,7 +7,7 @@ const Account = () => {
   const [users,setUsers] = useState([]);
   useEffect( ()=>{
   async function callApi(){
-  const res = await fetch('http://localhost:3000/users');
+  const res = await fetch('https://telbot-backend.onrender.com/users');
   const data = await res.json();
   setUsers(data);
   }
@@ -34,11 +34,11 @@ const Account = () => {
          </div>
          <div className="actions">
           <BlockIcon id="blockbtn" className="action" style={{color: user.subscription === 'active' ? 'orange' : 'green'}}onClick={async (e)=>{
-           await fetch(`http://localhost:3000/block/${user._id}`,{method: 'PUT'});
+           await fetch(`https://telbot-backend.onrender.com/block/${user._id}`,{method: 'PUT'});
            
           }}/>
           <DeleteIcon id="deletebtn"className="action" onClick={async (e)=>{
-           await fetch(`http://localhost:3000/delete/${user._id}`,{method: 'DELETE'});
+           await fetch(`https://telbot-backend.onrender.com/delete/${user._id}`,{method: 'DELETE'});
            
           }}/>
 

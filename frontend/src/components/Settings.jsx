@@ -7,7 +7,7 @@ const Settings = () => {
   });
   useEffect(()=>{
   async function getSettings(){
-    const res = await fetch('http://localhost:3000/bot');
+    const res = await fetch('https://telbot-backend.onrender.com/bot');
     const data = await res.json();
     console.log(data);
     setSettings(data);
@@ -27,7 +27,7 @@ const Settings = () => {
           },
           body: JSON.stringify(settings)
         }
-        const res = await fetch(`http://localhost:3000/bot/update/${settings._id}`,config);
+        const res = await fetch(`https://telbot-backend.onrender.com/update/${settings._id}`,config);
         const data = await res.json();
         
       }}>Update</button>
@@ -42,7 +42,7 @@ const Settings = () => {
           },
           body: JSON.stringify(settings)
         }
-        const res = await fetch(`http://localhost:3000/bot/update/${settings._id}`,config);
+        const res = await fetch(`https://telbot-backend.onrender.com/bot/update/${settings._id}`,config);
         const data = await res.json();
         
       }}>Update</button>
