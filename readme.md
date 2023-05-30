@@ -10,8 +10,6 @@ You can find the Telegram Bot Handle at t.me/WeatherUpdateASTBot.
 
 To enhance the user experience, I have developed an admin panel. It provides comprehensive features for managing user accounts, including deletion and subscription blocking. Additionally, I have implemented a bot settings area that allows users to easily update their API keys. To handle these tasks, I have created a REST API that fetches data from a MongoDB database, which stores information such as subscribed users and bot settings. The UI part of the admin portal is developed using react.js.
 
-Both the admin portal and the telegram bot backend have been deployed on render.com for optimal performance and reliability. You can access the live admin portal at https://telbot-weather-admin-panel.onrender.com.
-
 For communication between the Telegram bot and my backend, I have utilized the node-telegram-bot-api library, leveraging the provided API key.
 
 You can explore the project further on the GitHub repository at https://github.com/KAPIL9027/AstConsulting-Task.
